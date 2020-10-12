@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "819410375000",
+    "firebase_url": "https://whatsappmessenger-db0f6.firebaseio.com",
+    "project_id": "whatsappmessenger-db0f6",
+    "storage_bucket": "whatsappmessenger-db0f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819410375000:android:b5d2c505e2f0402403952d",
+        "android_client_info": {
+          "package_name": "com.anshu.whatsappmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819410375000-pke7u2g94mssljss4111upqqe1lsegud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiwtHOP0S5zcAWnSA_mwqVyHOIfi81rAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819410375000-pke7u2g94mssljss4111upqqe1lsegud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
