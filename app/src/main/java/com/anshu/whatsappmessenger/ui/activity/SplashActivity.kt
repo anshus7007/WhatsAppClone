@@ -22,17 +22,17 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }, SPLASH_TIME_OUT)
     }
-
-
-    override fun onStart() {
-        super.onStart()
-        firebaseUser= FirebaseAuth.getInstance().currentUser
-
-        if(firebaseUser!=null)
-        {
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
-        }
-
-    }
+//
+//
+//    override fun onStart() {
+//        super.onStart()
+//        firebaseUser= FirebaseAuth.getInstance().currentUser
+//
+//        if(firebaseUser!=null)
+//        {
+//            startActivity(Intent(this,MainActivity::class.java))
+//            finish()
+//        }
+//
+//    }
 }

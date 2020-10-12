@@ -1,6 +1,8 @@
 package com.anshu.whatsappmessenger.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +17,7 @@ import com.anshu.whatsappmessenger.ui.fragments.ChatFragment
 import com.anshu.whatsappmessenger.ui.fragments.SearchFragment
 import com.anshu.whatsappmessenger.ui.fragments.SettingsFragment
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,10 +53,17 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+         when (item.itemId) {
+            R.id.action_signOut ->
+            {
+                FirebaseAuth.getInstance().signOut()
+                startActivity(Intent(this,LoginActivity::class.java))
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                finish()
+                return true
+            }
         }
+        return false
     }
     class ViewPagerAdapter(fragmentManager:FragmentManager):FragmentPagerAdapter(fragmentManager)
     {
