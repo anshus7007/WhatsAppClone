@@ -13,18 +13,29 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.anshu.whatsappmessenger.R
+import com.anshu.whatsappmessenger.model.Users
 import com.anshu.whatsappmessenger.ui.fragments.ChatFragment
 import com.anshu.whatsappmessenger.ui.fragments.SearchFragment
 import com.anshu.whatsappmessenger.ui.fragments.SettingsFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var refUsers: DatabaseReference?=null
+    var firebaseUser: FirebaseUser?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar_main))
+
+        firebaseUser=FirebaseAuth.getInstance().currentUser
+        refUsers=FirebaseDatabase.getInstance().reference.child("Users").child(firebaseUser!!.uid)
 
         val toolbar:Toolbar= findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -40,6 +51,26 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter=viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+
+
+        //display username and profile pictues
+
+        refUsers!!.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    val user: Users?=snapshot.getValue(Users::class.java)
+                    user_name.text=user!!.getUserName()
+                    Picasso.get().load(user.getProfile()).placeholder(R.drawable.profile).into(profileImage)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
 
     }
 
