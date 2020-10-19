@@ -84,6 +84,7 @@ class ChatFragment : Fragment() {
                     }
                 }
                 userAdapter=UserAdapter(context!!,(mUsers as ArrayList<Users>),true)
+                recycler_view_chatLists.adapter=userAdapter
 
             }
 
