@@ -33,7 +33,7 @@ class ChatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_chat, container, false)
-        recycler_view_chatLists=view.findViewById(R.id.recycler_view_chat)
+        recycler_view_chatLists=view.findViewById(R.id.recycler_view_chatLists)
         recycler_view_chatLists.setHasFixedSize(true)
         recycler_view_chatLists.layoutManager=LinearLayoutManager(context)
 
