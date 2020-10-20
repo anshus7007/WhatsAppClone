@@ -1,16 +1,19 @@
 package com.anshu.whatsappmessenger.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.anshu.whatsappmessenger.R
 import com.anshu.whatsappmessenger.adapter.UserAdapter
 import com.anshu.whatsappmessenger.model.ChatLists
 import com.anshu.whatsappmessenger.model.Users
+import com.anshu.whatsappmessenger.others.DividerItemDecorator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -33,21 +36,25 @@ class ChatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_chat, container, false)
+        val dividerItemDecoration: ItemDecoration = DividerItemDecorator(
+            ContextCompat.getDrawable(
+                requireContext(), R.drawable.divider
+            )!!
+        )
         recycler_view_chatLists=view.findViewById(R.id.recycler_view_chatLists)
         recycler_view_chatLists.setHasFixedSize(true)
         recycler_view_chatLists.layoutManager=LinearLayoutManager(context)
+        recycler_view_chatLists.addItemDecoration(dividerItemDecoration)
 
         firebaseUser=FirebaseAuth.getInstance().currentUser
         userChatList=ArrayList()
 
         val ref= FirebaseDatabase.getInstance().reference.child("ChatLists").child(firebaseUser!!.uid)
-        ref!!.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot)
-            {
+        ref!!.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 (userChatList as ArrayList).clear()
-                for(dataSnapShot in snapshot.children)
-                {
-                    val chatList=dataSnapShot.getValue(ChatLists::class.java)
+                for (dataSnapShot in snapshot.children) {
+                    val chatList = dataSnapShot.getValue(ChatLists::class.java)
                     (userChatList as ArrayList).add(chatList!!)
                 }
                 retrieveChatList()
@@ -67,24 +74,20 @@ class ChatFragment : Fragment() {
     {
         mUsers=ArrayList()
         val ref= FirebaseDatabase.getInstance().reference.child("Users")
-        ref!!.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot)
-            {
+        ref!!.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 (mUsers as ArrayList).clear()
-                for(dataSnapShot in snapshot.children)
-                {
-                    val user=dataSnapShot.getValue(Users::class.java)
-                    for(eachChatList in userChatList!!)
-                    {
-                        if(user!!.getUID().equals(eachChatList.getId()))
-                        {
+                for (dataSnapShot in snapshot.children) {
+                    val user = dataSnapShot.getValue(Users::class.java)
+                    for (eachChatList in userChatList!!) {
+                        if (user!!.getUID().equals(eachChatList.getId())) {
                             (mUsers as ArrayList).add(user!!)
 
                         }
                     }
                 }
-                userAdapter=UserAdapter(context!!,(mUsers as ArrayList<Users>),true)
-                recycler_view_chatLists.adapter=userAdapter
+                userAdapter = UserAdapter(context!!, (mUsers as ArrayList<Users>), true)
+                recycler_view_chatLists.adapter = userAdapter
 
             }
 

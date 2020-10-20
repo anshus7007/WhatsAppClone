@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.ChatFragment"
-    android:padding="7dp"
+    android:padding="10dp"
+
    >
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recycler_view_chatLists"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+
 />
 </RelativeLayout>

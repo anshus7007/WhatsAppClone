@@ -62,8 +62,8 @@ class SettingsFragment : Fragment() {
                     if(context!=null)
                     {
                         view.username_settings.text=user!!.getUserName()
-                        Picasso.get().load(user!!.getProfile()).into(profile_image_settings)
-                        Picasso.get().load(user!!.getCover()).into(cover_image)
+                        Picasso.get().load(user!!.getProfile()!!).into(profile_image_settings!!)
+                        Picasso.get().load(user!!.getCover()!!).into(cover_image!!)
 
                     }
                 }

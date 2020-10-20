@@ -106,7 +106,7 @@ class SearchFragment : Fragment() {
 
                 }
                 userAdapter= UserAdapter(context!!,mUsers!!,false)
-                recyclerviewSearch!!.adapter=userAdapter
+                recyclerviewSearch!!.adapter=userAdapter!!
 
             }
 
